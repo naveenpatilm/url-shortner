@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@ResponseStatus(HttpStatus.OK)
 public class AccountController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
