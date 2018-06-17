@@ -45,11 +45,11 @@ public class UrlRegistrationController {
     public UrlRegistrationResponse registerUrl(@RequestHeader(value = "Authorization") String authToken,
                                                @RequestBody UrlRegistrationRequest urlRegistrationRequest)
             throws IllegalAccessException {
-        if (isValidRedirectType(urlRegistrationRequest)) {
+        if (!isValidRedirectType(urlRegistrationRequest)) {
             throw new IllegalArgumentException("invalid redirect type, can be either 301 or 302");
         }
 
-        if (isValidUrlRegistrationRequest(urlRegistrationRequest)) {
+        if (isInValidUrlRegistrationRequest(urlRegistrationRequest)) {
             throw new IllegalArgumentException("url cannot be empty");
         }
 
@@ -95,11 +95,11 @@ public class UrlRegistrationController {
     }
 
     private boolean isValidRedirectType(UrlRegistrationRequest urlRegistrationRequest) {
-        return urlRegistrationRequest.getRedirectType() != PERMANENTLY_MOVED
-                || urlRegistrationRequest.getRedirectType() != REDIRECTION_FOUND;
+        return urlRegistrationRequest.getRedirectType().equals(PERMANENTLY_MOVED)
+                || urlRegistrationRequest.getRedirectType().equals(REDIRECTION_FOUND);
     }
 
-    private boolean isValidUrlRegistrationRequest(UrlRegistrationRequest urlRegistrationRequest) {
+    private boolean isInValidUrlRegistrationRequest(UrlRegistrationRequest urlRegistrationRequest) {
         return urlRegistrationRequest == null
                 || urlRegistrationRequest.getUrl() == null
                 || urlRegistrationRequest.getUrl().isEmpty();

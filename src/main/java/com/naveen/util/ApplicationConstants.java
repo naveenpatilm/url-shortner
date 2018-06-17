@@ -9,4 +9,5 @@ public class ApplicationConstants {
     public static final Integer PERMANENTLY_MOVED = 301;
     public static final String ACCOUNT_OPENED = "Your account is opened";
     public static final String ACCOUNT_EXISTS = "account with that ID already exists";
+    public static final String REDIRECTION_HEADER = "Location";
 }

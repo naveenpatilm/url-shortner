@@ -16,7 +16,7 @@ public class UrlRegistrationRequest {
         return redirectType;
     }
 
-    public void setRedirectType(Integer redirectionType) {
+    public void setRedirectType(Integer redirectType) {
         this.redirectType = redirectType;
     }
 }
