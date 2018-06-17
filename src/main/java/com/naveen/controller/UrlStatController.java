@@ -2,7 +2,6 @@ package com.naveen.controller;
 
 import com.naveen.model.Account;
 import com.naveen.service.AccountService;
-import com.naveen.service.UrlService;
 import com.naveen.service.UrlStatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +17,15 @@ import java.util.Map;
 public class UrlStatController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private AccountService accountService;
-    @Autowired
     UrlStatService urlStatService;
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping(value = "/statistic/{AccountId}", method = RequestMethod.GET)
     public Map<String, Integer> getUrlStats(@RequestHeader(value = "Authorization") String authToken,
                                             @PathVariable("AccountId") String accountId) throws IllegalAccessException {
         Account account = accountService.validateUser(authToken);
-        if(!account.getAccountId().equals(accountId)) {
+        if (!account.getAccountId().equals(accountId)) {
             LOGGER.error("unauthorized to access account id - " + accountId);
             throw new IllegalAccessException("you are not authorized to access this resource");
         }

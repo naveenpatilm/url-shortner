@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,7 @@ public class AccountController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public OpenAccountResponse OpenAccount(@RequestBody OpenAccountRequest openAccountRequest) {
-        if(isOpenAccountRequestInValid(openAccountRequest)) {
+        if (isOpenAccountRequestInValid(openAccountRequest)) {
             LOGGER.error("invalid open account request");
             throw new IllegalArgumentException("accound id cannot be empty");
         }

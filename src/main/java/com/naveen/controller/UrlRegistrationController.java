@@ -1,31 +1,23 @@
 package com.naveen.controller;
 
 import com.naveen.dao.AccountDao;
-import com.naveen.dao.UrlDao;
 import com.naveen.model.Account;
-import com.naveen.model.Url;
-import com.naveen.response.UrlRegistrationResponse;
 import com.naveen.request.UrlRegistrationRequest;
-
-import static com.naveen.util.ApplicationConstants.SHORT_URL_LENGTH;
-
-import static com.naveen.util.ApplicationConstants.PERMANENTLY_MOVED;
-import static com.naveen.util.ApplicationConstants.REDIRECTION_FOUND;
-
+import com.naveen.response.UrlRegistrationResponse;
 import com.naveen.service.AccountService;
 import com.naveen.service.UrlService;
-import com.naveen.util.ApplicationConstants;
-import com.naveen.util.RandomStringGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static com.naveen.util.ApplicationConstants.PERMANENTLY_MOVED;
+import static com.naveen.util.ApplicationConstants.REDIRECTION_FOUND;
 
 @RestController
 @ResponseStatus(HttpStatus.OK)

@@ -4,15 +4,13 @@ import com.naveen.dao.AccountDao;
 import com.naveen.model.Account;
 import com.naveen.response.OpenAccountResponse;
 import com.naveen.service.AccountService;
-
-import static com.naveen.util.ApplicationConstants.ACCOUNT_EXISTS;
-import static com.naveen.util.ApplicationConstants.ACCOUNT_OPENED;
-import static com.naveen.util.ApplicationConstants.PASSWORD_LENGTH;
 import com.naveen.util.RandomStringGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.naveen.util.ApplicationConstants.*;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -46,5 +44,13 @@ public class AccountServiceImpl implements AccountService {
             throw new IllegalAccessException("please register your account and try again");
         }
         return account;
+    }
+
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    public void setRandomStringGenerator(RandomStringGenerator randomStringGenerator) {
+        this.randomStringGenerator = randomStringGenerator;
     }
 }

@@ -20,13 +20,12 @@ import static com.naveen.util.ApplicationConstants.SHORT_URL_LENGTH;
 @Service
 public class UrlServiceImpl implements UrlService {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
+    @Autowired
+    RandomStringGenerator randomStringGenerator;
     @Autowired
     private UrlDao urlDao;
     @Autowired
     private UrlStatDao urlStatDao;
-    @Autowired
-    RandomStringGenerator randomStringGenerator;
     @Value("${baseUrl}")
     private String baseUrl;
 

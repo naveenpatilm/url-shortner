@@ -1,8 +1,8 @@
 package com.naveen.model;
 
-import static com.naveen.util.ApplicationConstants.REDIRECTION_FOUND;
-
 import javax.persistence.*;
+
+import static com.naveen.util.ApplicationConstants.REDIRECTION_FOUND;
 
 @Entity
 public class Url {

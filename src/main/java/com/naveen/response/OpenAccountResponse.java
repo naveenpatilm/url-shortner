@@ -34,4 +34,24 @@ public class OpenAccountResponse {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OpenAccountResponse that = (OpenAccountResponse) o;
+
+        if (success != that.success) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        return password != null ? password.equals(that.password) : that.password == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (success ? 1 : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
+    }
 }
