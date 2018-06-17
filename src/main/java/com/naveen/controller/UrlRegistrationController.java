@@ -6,7 +6,13 @@ import com.naveen.model.Account;
 import com.naveen.model.Url;
 import com.naveen.response.UrlRegistrationResponse;
 import com.naveen.request.UrlRegistrationRequest;
+
 import static com.naveen.util.ApplicationConstants.SHORT_URL_LENGTH;
+
+import static com.naveen.util.ApplicationConstants.PERMANENTLY_MOVED;
+import static com.naveen.util.ApplicationConstants.REDIRECTION_FOUND;
+
+import com.naveen.util.ApplicationConstants;
 import com.naveen.util.RandomStringGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,18 +42,25 @@ public class UrlRegistrationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UrlRegistrationResponse registerUrl(@RequestHeader(value="Authorization") String authToken,
+    public UrlRegistrationResponse registerUrl(@RequestHeader(value = "Authorization") String authToken,
                                                @RequestBody UrlRegistrationRequest urlRegistrationRequest)
             throws IllegalAccessException {
-        //Handle invalid redirect type
+        if (isValidRedirectType(urlRegistrationRequest)) {
+            throw new IllegalArgumentException("invalid redirect type, can be either 301 or 302");
+        }
+
+        if (isValidUrlRegistrationRequest(urlRegistrationRequest)) {
+            throw new IllegalArgumentException("url cannot be empty");
+        }
+
         LOGGER.info("registering url - " + urlRegistrationRequest.getUrl());
         Account account = accountDao.findByPassword(authToken);
-        if(account == null) {
+        if (account == null) {
             LOGGER.error("unauthorized request for registering url - " + urlRegistrationRequest.getUrl());
             throw new IllegalAccessException("please register your account and try again");
         }
         Url existingUrl = urlDao.findByLongUrl(urlRegistrationRequest.getUrl());
-        if(existingUrl != null) {
+        if (existingUrl != null) {
             LOGGER.info(urlRegistrationRequest.getUrl() + " url already registered. returning existing short url");
             return new UrlRegistrationResponse(baseUrl + existingUrl.getShortUrlKey());
         }
@@ -60,11 +73,16 @@ public class UrlRegistrationController {
         response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
 
+    @ExceptionHandler
+    private void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
     private String saveUrlDetails(UrlRegistrationRequest urlRegistrationRequest) {
         LOGGER.info("generating short url for url - " + urlRegistrationRequest.getUrl());
         String shortUrl = randomStringGenerator.generateRandomString(SHORT_URL_LENGTH);
         Url url = new Url(urlRegistrationRequest.getUrl(), shortUrl);
-        if(urlRegistrationRequest.getRedirectType() != null) {
+        if (urlRegistrationRequest.getRedirectType() != null) {
             url.setRedirectType(urlRegistrationRequest.getRedirectType());
         }
         try {
@@ -74,5 +92,16 @@ public class UrlRegistrationController {
             saveUrlDetails(urlRegistrationRequest);
         }
         return url.getShortUrlKey();
+    }
+
+    private boolean isValidRedirectType(UrlRegistrationRequest urlRegistrationRequest) {
+        return urlRegistrationRequest.getRedirectType() != PERMANENTLY_MOVED
+                || urlRegistrationRequest.getRedirectType() != REDIRECTION_FOUND;
+    }
+
+    private boolean isValidUrlRegistrationRequest(UrlRegistrationRequest urlRegistrationRequest) {
+        return urlRegistrationRequest == null
+                || urlRegistrationRequest.getUrl() == null
+                || urlRegistrationRequest.getUrl().isEmpty();
     }
 }
