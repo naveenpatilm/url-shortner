@@ -23,7 +23,7 @@ public class ShortUrlController {
     @RequestMapping(value = "/{short_url_key}", method = RequestMethod.GET)
     public void redirectShortUrl(@PathVariable("short_url_key") String shortUrlKey,
                                  HttpServletResponse httpServletResponse) {
-        Url url = urlService.gerUrlDetailsByShortUrlKey(shortUrlKey);
+        Url url = urlService.getUrlDetailsByShortUrlKey(shortUrlKey);
         if (url == null) {
             throw new IllegalStateException("url not registered");
         }

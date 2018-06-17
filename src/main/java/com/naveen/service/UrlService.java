@@ -6,7 +6,7 @@ import com.naveen.request.UrlRegistrationRequest;
 import com.naveen.response.UrlRegistrationResponse;
 
 public interface UrlService {
-    Url gerUrlDetailsByShortUrlKey(String shortUrlKey);
+    Url getUrlDetailsByShortUrlKey(String shortUrlKey);
 
     void incrementRedirectionCount(Url url);
 

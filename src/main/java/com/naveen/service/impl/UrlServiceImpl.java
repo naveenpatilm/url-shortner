@@ -30,7 +30,7 @@ public class UrlServiceImpl implements UrlService {
     private String baseUrl;
 
     @Override
-    public Url gerUrlDetailsByShortUrlKey(String shortUrlKey) {
+    public Url getUrlDetailsByShortUrlKey(String shortUrlKey) {
         return urlDao.findByShortUrlKey(shortUrlKey);
     }
 
@@ -70,5 +70,17 @@ public class UrlServiceImpl implements UrlService {
             saveUrlDetails(urlRegistrationRequest, account);
         }
         return url.getShortUrlKey();
+    }
+
+    public void setRandomStringGenerator(RandomStringGenerator randomStringGenerator) {
+        this.randomStringGenerator = randomStringGenerator;
+    }
+
+    public void setUrlDao(UrlDao urlDao) {
+        this.urlDao = urlDao;
+    }
+
+    public void setUrlStatDao(UrlStatDao urlStatDao) {
+        this.urlStatDao = urlStatDao;
     }
 }
