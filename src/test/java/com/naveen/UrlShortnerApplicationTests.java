@@ -1,4 +1,4 @@
-package com.naveen.url_shortner;
+package com.naveen;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
