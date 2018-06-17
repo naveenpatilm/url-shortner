@@ -3,7 +3,6 @@ package com.naveen.controller;
 import com.naveen.request.OpenAccountRequest;
 import com.naveen.request.UrlRegistrationRequest;
 import com.naveen.response.OpenAccountResponse;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,16 +20,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UrlStatControllerTest {
+    private static boolean isSetUpDone = false;
     private MockMvc mockMvc;
     @Autowired
     private AccountController accountController;
     @Autowired
     private UrlRegistrationController urlRegistrationController;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
     private OpenAccountResponse openAccountResponse;
-    private static boolean isSetUpDone = false;
 
     @Before
     public void setUp() throws Exception {
@@ -38,7 +36,7 @@ public class UrlStatControllerTest {
     }
 
     public void seedRegistrationData() throws IllegalAccessException {
-        if(isSetUpDone) return;
+        if (isSetUpDone) return;
         OpenAccountRequest openAccountRequest = new OpenAccountRequest();
         openAccountRequest.setAccountId("testAccount");
         openAccountResponse = accountController.OpenAccount(openAccountRequest);

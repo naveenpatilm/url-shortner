@@ -1,6 +1,5 @@
 package com.naveen.controller;
 
-import com.naveen.UrlShortnerApplication;
 import com.naveen.request.OpenAccountRequest;
 import com.naveen.response.OpenAccountResponse;
 import com.naveen.service.impl.AccountServiceImpl;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
