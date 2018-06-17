@@ -36,6 +36,7 @@ public class UrlServiceTest {
     public void getUrlDetailsByShortUrlKey_returnValidUrlDetails_validShortUrlKey() {
         when(urlDao.findByShortUrlKey("valid_short_key"))
                 .thenReturn(new Url("longUrl", "shortUrl", new Account()));
+
         Url actualUrl = urlService.getUrlDetailsByShortUrlKey("valid_short_key");
         assertEquals("longUrl", actualUrl.getLongUrl());
         assertEquals("shortUrl", actualUrl.getShortUrlKey());
@@ -44,14 +45,16 @@ public class UrlServiceTest {
     @Test
     public void getUrlDetailsByShortUrlKey_returnNullUrl_invalidShortKey() {
         when(urlDao.findByShortUrlKey("invalid_short_key")).thenReturn(null);
+
         Url actualUrl = urlService.getUrlDetailsByShortUrlKey("invalid_short_key");
         assertEquals(null, actualUrl);
     }
 
     @Test
-    public void incrementRedirectionCount_noStat_noError() {
+    public void incrementRedirectionCount_noStats_noError() {
         Url emptyUrl = new Url();
         when(urlStatDao.findByUrl(emptyUrl)).thenReturn(null);
+
         urlService.incrementRedirectionCount(emptyUrl);
         assertTrue(true);
     }
@@ -61,6 +64,7 @@ public class UrlServiceTest {
         when(urlDao.findByLongUrl("newLongUrl")).thenReturn(null);
         UrlRegistrationRequest urlRegistrationRequest = new UrlRegistrationRequest();
         urlRegistrationRequest.setUrl("valid_long_url");
+
         UrlRegistrationResponse urlRegistrationResponse = urlService.registerUrl(urlRegistrationRequest, new Account());
         assertNotNull(urlRegistrationResponse.getShortUrl());
     }
@@ -73,6 +77,7 @@ public class UrlServiceTest {
         when(urlDao.findByLongUrl("existingLongUrl")).thenReturn(existingUrl);
         UrlRegistrationRequest urlRegistrationRequest = new UrlRegistrationRequest();
         urlRegistrationRequest.setUrl("existingLongUrl");
+
         UrlRegistrationResponse urlRegistrationResponse = urlService.registerUrl(urlRegistrationRequest, new Account());
         assertTrue(urlRegistrationResponse.getShortUrl().contains(existingUrl.getShortUrlKey()));
     }

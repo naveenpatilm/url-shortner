@@ -31,4 +31,12 @@ public class UrlStatServiceImpl implements UrlStatService {
         });
         return urlStatResponse;
     }
+
+    public void setUrlDao(UrlDao urlDao) {
+        this.urlDao = urlDao;
+    }
+
+    public void setUrlStatDao(UrlStatDao urlStatDao) {
+        this.urlStatDao = urlStatDao;
+    }
 }
