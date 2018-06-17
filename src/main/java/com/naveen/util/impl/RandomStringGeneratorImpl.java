@@ -9,6 +9,7 @@ import java.util.UUID;
 public class RandomStringGeneratorImpl implements RandomStringGenerator {
     @Override
     public String generateRandomString(int stringLength) {
+        if(stringLength <= 0) return "";
         String uuid = UUID.randomUUID().toString();
         return uuid.replace("-", "").substring(0, stringLength);
     }
