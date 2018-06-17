@@ -83,4 +83,8 @@ public class UrlServiceImpl implements UrlService {
     public void setUrlStatDao(UrlStatDao urlStatDao) {
         this.urlStatDao = urlStatDao;
     }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 }
