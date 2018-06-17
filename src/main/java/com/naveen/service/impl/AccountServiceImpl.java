@@ -37,4 +37,14 @@ public class AccountServiceImpl implements AccountService {
         LOGGER.info("account successfully opened for account id - " + accountId);
         return new OpenAccountResponse(true, ACCOUNT_OPENED, password);
     }
+
+    @Override
+    public Account validateUser(String authToken) throws IllegalAccessException {
+        Account account = accountDao.findByPassword(authToken);
+        if (account == null) {
+            LOGGER.error("unauthorized request for registering url");
+            throw new IllegalAccessException("please register your account and try again");
+        }
+        return account;
+    }
 }

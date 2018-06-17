@@ -15,13 +15,17 @@ public class Url {
     private String shortUrlKey;
     @Column(nullable = false)
     private Integer redirectType = REDIRECTION_FOUND;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Account account;
 
     public Url() {
     }
 
-    public Url(String longUrl, String shortUrlKey) {
+    public Url(String longUrl, String shortUrlKey, Account account) {
         this.longUrl = longUrl;
         this.shortUrlKey = shortUrlKey;
+        this.account = account;
     }
 
     public Integer getId() {
@@ -54,5 +58,37 @@ public class Url {
 
     public void setRedirectType(Integer redirectType) {
         this.redirectType = redirectType;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Url url = (Url) o;
+
+        if (id != null ? !id.equals(url.id) : url.id != null) return false;
+        if (longUrl != null ? !longUrl.equals(url.longUrl) : url.longUrl != null) return false;
+        if (shortUrlKey != null ? !shortUrlKey.equals(url.shortUrlKey) : url.shortUrlKey != null) return false;
+        if (redirectType != null ? !redirectType.equals(url.redirectType) : url.redirectType != null) return false;
+        return account != null ? account.equals(url.account) : url.account == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (longUrl != null ? longUrl.hashCode() : 0);
+        result = 31 * result + (shortUrlKey != null ? shortUrlKey.hashCode() : 0);
+        result = 31 * result + (redirectType != null ? redirectType.hashCode() : 0);
+        result = 31 * result + (account != null ? account.hashCode() : 0);
+        return result;
     }
 }

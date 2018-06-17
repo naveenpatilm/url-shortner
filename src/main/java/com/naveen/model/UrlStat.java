@@ -8,9 +8,12 @@ public class UrlStat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", unique = true, nullable = false)
+    @JoinColumn(referencedColumnName = "id", unique = true, nullable = false)
     private Url url;
     private int redirectionCount;
+
+    public UrlStat() {
+    }
 
     public UrlStat(Url url) {
         this.url = url;
@@ -28,7 +31,7 @@ public class UrlStat {
         return redirectionCount;
     }
 
-    public synchronized void setRedirectionCount(int redirectionCount) {
+    public void setRedirectionCount(int redirectionCount) {
         this.redirectionCount = redirectionCount;
     }
 
@@ -38,5 +41,25 @@ public class UrlStat {
 
     public void setUrl(Url url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UrlStat urlStat = (UrlStat) o;
+
+        if (redirectionCount != urlStat.redirectionCount) return false;
+        if (id != null ? !id.equals(urlStat.id) : urlStat.id != null) return false;
+        return url != null ? url.equals(urlStat.url) : urlStat.url == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + redirectionCount;
+        return result;
     }
 }
