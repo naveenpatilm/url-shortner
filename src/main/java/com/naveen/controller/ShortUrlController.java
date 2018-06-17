@@ -32,6 +32,8 @@ public class ShortUrlController {
         LOGGER.info("redirecting to url - " + url.getLongUrl());
         httpServletResponse.setHeader(REDIRECTION_HEADER, url.getLongUrl());
         httpServletResponse.setStatus(url.getRedirectType());
+        LOGGER.info("incrementing redirection count for url - " + url.getLongUrl());
+        urlService.incrementRedirectionCount(url);
     }
 
     @ExceptionHandler
