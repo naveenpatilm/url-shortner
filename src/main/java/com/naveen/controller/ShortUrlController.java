@@ -29,6 +29,7 @@ public class ShortUrlController {
         if (url == null) {
             throw new IllegalStateException("url not registered");
         }
+        LOGGER.info("redirecting to url - " + url.getLongUrl());
         httpServletResponse.setHeader(REDIRECTION_HEADER, url.getLongUrl());
         httpServletResponse.setStatus(url.getRedirectType());
     }
