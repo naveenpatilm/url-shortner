@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>URL shortner info</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<h1># url-shortner</h1>
+<h2>HTTP service that serves to shorten URLs.</h2>
+
+<h3>#1. Download the source code to your system by running below command:</h3>
+
+git clone git@github.com:naveenpatilm/url-shortner.git
+
+<h3>#2. Switch into workspace:</h3>
+
+cd url-shortner
+
+<h3>#3. To download required dependencies and run test cases perform:</h3>
+
+mvn clean install
+
+<h3>#4. To start the application run(This starts the url shortner application and it is available at port 8080.
+	http://localhost:8080 is the url from which the application can be accessed):</h3>
+
+mvn spring-boot:run
+
+<h2>API details:</h2>
+
+<h3>POST http://localhost:8080/account</h3>
+
+<p>Request:
+{
+"accountId":"second"
+}
+</p>
+
+<p>Response:
+{
+"success": true,
+"description": "Your account is opened",
+"password": "c93c8f0f"
+	}</p>
+
+<h3>POST http://localhost:8080/register</h3>
+
+<p>Header: Authorization ex:c93c8f0f</p>
+
+<p>Request:
+{
+"url": "http://www.stackoverflow.com",
+"redirectType":301
+}</p>
+
+<p>Response:
+{
+"shortUrl": "http://localhost:8080/bbf2c7b"
+}</p>
+
+<h3>GET http://localhost:8080//statistic/{accountId}</h3>
+
+<p>Header: Authorization ex:c93c8f0f</p>
+
+<p>Response:
+{
+"http://www.stackoverflow.com": 9
+}</p>
+
+<h2>Help page:</h2>
+http://localhost:8080/help
+
+<h3>If you use postman for API testing, than you can import the below collection url in postman to test APIs:</h3>
+https://www.getpostman.com/collections/50f64d4c304689a38040
+</body>
+</html>
