@@ -46,7 +46,7 @@ POST http://localhost:8080/register
 
 	Response:
 		{
-			"shortUrl": "http://localhost:8080/{shortUrlKey}"
+			"shortUrl": "http://localhost:8080/bbf2c7b"
 		}
 	
 GET http://localhost:8080//statistic/{accountId}
@@ -60,3 +60,6 @@ GET http://localhost:8080//statistic/{accountId}
 		
 Help page:
 	http://localhost:8080/help
+	
+If you use postman for API testing, than you can import the below collection url in postman to test APIs:
+	https://www.getpostman.com/collections/50f64d4c304689a38040
