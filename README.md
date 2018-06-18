@@ -2,16 +2,61 @@
 HTTP service that serves to shorten URLs.
 
 #1. Download the source code to your system by running below command:
-git@github.com:naveenpatilm/url-shortner.git
+
+	git clone git@github.com:naveenpatilm/url-shortner.git
 
 #2. Switch into workspace:
+	
 	cd url-shortner
   
 #3. To download required dependencies and run test cases perform:
+	
 	mvn clean install
   
-#4. To start the application run:
+#4. To start the application run(This starts the url shortner application and it is available at port 8080.
+http://localhost:8080 is the url from which the application can be accessed):
+	
 	mvn spring-boot:run
-  
-	This starts the url shortner application and it is available at port 8080.
-	http://localhost:8080 is the url from which the application can be accessed.
+
+API details:
+
+POST http://localhost:8080/account
+
+	Request:
+		{
+			"accountId":"second"
+		}
+
+	Response:
+		{
+			"success": true,
+			"description": "Your account is opened",
+			"password": "c93c8f0f"
+		}
+	
+POST http://localhost:8080/register
+
+	Header: Authorization ex:c93c8f0f
+
+	Request:
+		{
+			"url": "http://www.stackoverflow.com",
+			"redirectType":301
+		}
+
+	Response:
+		{
+			"shortUrl": "http://localhost:8080/{shortUrlKey}"
+		}
+	
+GET http://localhost:8080//statistic/{accountId}
+
+	Header: Authorization ex:c93c8f0f
+
+	Response:
+		{
+			"http://www.stackoverflow.com": 9
+		}
+		
+Help page:
+	http://localhost:8080/help
