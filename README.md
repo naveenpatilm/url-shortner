@@ -57,6 +57,9 @@ GET http://localhost:8080//statistic/{accountId}
 		{
 			"http://www.stackoverflow.com": 9
 		}
+
+
+**NOTE: If you want to see updated statistic of redirection count, than please clear your browser cache for every request you make with short url.**
 		
 Help page:
 	http://localhost:8080/help
